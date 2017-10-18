@@ -48,7 +48,7 @@ describe('Replicants Resource', function(){
           done()
         })
     })
-    it('should throw an error for missing incept data', function(done) {
+    it('should throw an error for missing incept date', function(done) {
       const replicant = {
         name: 'Rachel',
         serial: '', 
@@ -206,6 +206,16 @@ describe('Replicants Resource', function(){
                   done()
                 })
             })
+        })
+    })
+
+    it('should return an error if ID is not found', function(done) {
+      chai.request(app)
+        .delete('/replicants/999')
+        .end((err, res) => {
+          expect(res.status).to.equal(404)
+          expect(res.body.error.message).to.be.ok
+          done()
         })
     })
   })

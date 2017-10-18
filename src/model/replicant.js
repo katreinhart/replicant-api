@@ -85,7 +85,7 @@ function deleteReplicant(id) {
   const index = replicants.indexOf(replicant)
 
   if(!replicant) {
-    return ({ error: { status: 400, message: `Replicant ${id} not found` }})
+    return ({ error: { status: 404, message: `Replicant ${id} not found` }})
   } else {
     replicants.splice(index, 1)
     return replicant

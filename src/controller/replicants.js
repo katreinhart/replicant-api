@@ -44,7 +44,7 @@ deleteReplicant = (req, res, next) => {
   if(id) {
     const response = model.deleteReplicant(id)
     if(response.error) {
-      res.status(error.status).json({ error: response.error })
+      res.status(response.error.status).json({ error: response.error })
     } else {
       res.status(200).json({ data: response })
     }
