@@ -124,7 +124,9 @@ describe('Replicants Resource', function(){
         serial: 'K38N0816',
         purpose: 'Secretary/Enforcer',
         manufacturer: 'Niander Wallace', 
-        inceptDate: '08 August 2035'
+        inceptDate: '08 August 2035',
+        retired: true,
+        retiredBy: 'ee38a617-810d-4c89-b11d-69b004750fb4'
       }
       chai.request(app)
         .get('/replicants')

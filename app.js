@@ -6,8 +6,11 @@ const bodyParser = require('body-parser')
 const port = process.env.PORT || 3000
 
 app.disable('x-powered-by')
-if (process.env.NODE_ENV === 'development') app.use(morgan('dev'))
+if(process.env.NODE_ENV === 'development') app.use(morgan('dev'))
 app.use(bodyParser.json())
+
+const retirementRoutes = require('./src/routes/retirements')
+app.use('/bladerunners/:id/retirements', retirementRoutes)
 
 const replicantRoutes = require('./src/routes/replicants')
 app.use('/replicants', replicantRoutes)

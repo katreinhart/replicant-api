@@ -81,6 +81,7 @@ function deleteBladeRunner (id) {
 }
 
 module.exports = {
+  bladerunners,
   getAllBladeRunners,
   getOneBladeRunner,
   createBladeRunner,

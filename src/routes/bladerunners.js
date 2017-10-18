@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const ctrl = require('../controller/bladerunners')
+// const retirementsRouter = require('./retirements')
+
+// router.use('/:id/retirements', retirementsRouter)
 
 router.get('/', ctrl.getAllBladeRunners)
 router.get('/:id', ctrl.getOneBladeRunner)

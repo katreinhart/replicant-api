@@ -6,7 +6,9 @@ module.exports = [
     "serial": "unknown",
     "manufacturer": "Niander Wallace",
     "purpose": "Secretary, Enforcer",
-    "inceptDate": "unknown"
+    "inceptDate": "unknown",
+    "retired": false,
+    "retiredBy": null
   },
   {
     "id": '75b40632-edd7-4574-8da6-0bd89a153cff',
@@ -15,6 +17,18 @@ module.exports = [
     "serial": "NK680514", 
     "manufacturer": "Niander Wallace", 
     "purpose": "Combat Medic",
-    "inceptDate": "22 March 2019"
+    "inceptDate": "22 March 2019",
+    "retired": false,
+    "retiredBy": null
+  },
+  {
+    "id": "6c7f72b3-95e5-4ac0-bef6-3df28316647d",
+    "name": "Pris",
+    "model": "Nexus 6",
+    "serial": "N6FAB21416",
+    "manufacturer": "Tyrell Corp.",
+    "inceptDate": "14 Feb 2016",
+    "retired": false,
+    "retiredBy": null
   }
 ]

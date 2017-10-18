@@ -22,8 +22,11 @@ function createReplicant(body) {
     serial, 
     manufacturer, 
     purpose,
-    inceptDate
+    inceptDate 
   }
+
+  replicant.retired = false
+  replicant.retiredBy = null
 
   const errors = []
 
@@ -47,25 +50,17 @@ function updateReplicant(id, body) {
   if(!replicant) {
     return ({ error: { status: 404, message: `Replicant ${id} not found` }})
   } 
-  const { 
-    name, 
-    model,
-    inceptDate,
-    serial,
-    manufacturer,
-    purpose
-  } = body 
-
+  const { name, model, inceptDate, serial, manufacturer, purpose, retired, retiredBy } = body
   const index = replicants.indexOf(replicant)
 
   const errors = []
   
-  if(!name)         errors.push ("Name is required")
-  if(!model)        errors.push ("Model is required")
-  if(!inceptDate)   errors.push ("Incept date is required")
-  if(!serial)       errors.push("Serial is required")
+  if(!name) errors.push ("Name is required")
+  if(!model) errors.push ("Model is required")
+  if(!inceptDate) errors.push ("Incept date is required")
+  if(!serial) errors.push("Serial is required")
   if(!manufacturer) errors.push("Manufacturer is required")
-  if(!purpose)      errors.push("Purpose is required")
+  if(!purpose) errors.push("Purpose is required")
 
   if(errors.length > 0) {
     return ({ error: { status: 400, message: 'There were errors', errors: errors }})
@@ -76,6 +71,8 @@ function updateReplicant(id, body) {
     replicant.serial = serial
     replicant.manufacturer = manufacturer
     replicant.purpose = purpose
+    replicant.retired = retired
+    replicant.retiredBy = retiredBy
   } 
   return replicant
 }
@@ -93,6 +90,7 @@ function deleteReplicant(id) {
 }
 
 module.exports = {
+  replicants,
   getAllReplicants, 
   getOneReplicant,
   createReplicant,

@@ -5,8 +5,7 @@ module.exports = [
     "species": "Replicant",
     "employer": "LAPD", 
     "retired": [
-      "Morton Sapper", 
-      "Luv"
+      "75b40632-edd7-4574-8da6-0bd89a153cff"
     ]
   }, 
   {
@@ -14,9 +13,6 @@ module.exports = [
     "name": "Rick Deckard", 
     "species": "human",
     "employer": "LAPD (Retired)",
-    "retired": [
-      "Pris",
-      "Zhora"
-    ]
+    "retired": []
   }
 ] 
