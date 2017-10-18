@@ -26,8 +26,32 @@ getOneBladeRunner = (req, res, next) => {
   }
 }
 
+updateBladeRunner = (req, res, next) => {
+  const id = req.params.id
+  const response = model.updateBladeRunner(id, req.body)
+  if(response.error) {
+    const error = response.error
+    res.status(error.status).json({ error })
+  } else {
+    res.status(200).json({ data: response })
+  }
+}
+
+deleteBladeRunner = (req, res, next) => {
+  const id = req.params.id
+  const response = model.deleteBladeRunner(id)
+  if(response.error) {
+    const error = response.error
+    res.status(error.status).json({ error })
+  } else {
+    res.status(200).json({ data: response })
+  }
+}
+
 module.exports = {
   getAllBladeRunners,
   getOneBladeRunner,
-  createBladeRunner
+  createBladeRunner,
+  updateBladeRunner,
+  deleteBladeRunner
 }
