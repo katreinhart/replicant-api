@@ -11,4 +11,4 @@ module.exports = [
     "bladeRunnerId": "1ffec1b4-c7ea-4d4e-85de-9a3595139710",
     "retirementDate": "9 Nov 2019"
   }
-]
+] 
