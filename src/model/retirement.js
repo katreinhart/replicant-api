@@ -1,6 +1,6 @@
 const retirements = require('../../data/retirements')
 const { replicants } = require('./replicant')
-const bladerunners = require('./bladerunner').bladerunners
+const { bladerunners } = require('./bladerunner')
 
 const uuid = require('uuid/v4')
 
@@ -84,7 +84,7 @@ function updateRetirement(bladeRunnerId, retirementId, body) {
 
 function deleteRetirement (bladeRunnerId, retirementId) {
   const retirement = retirements.find(ret => ret.id === retirementId)
-
+  
   if(!retirement) return { error: { status: 404, message: "Not found" }}
   if(retirement.bladeRunnerId !== bladeRunnerId) return { error: { status: 400, message: "Not found" }}
 
@@ -93,9 +93,9 @@ function deleteRetirement (bladeRunnerId, retirementId) {
   replicant.retiredBy = null
 
   const bladerunner = bladerunners.find(br => br.id === bladeRunnerId)
-  const retIndex = bladerunner.retirements.indexOf(retirementId)
-  bladerunner.retirements.splice(retIndex, 1)
-
+  const retIndex = bladerunner.retired.indexOf(retirementId)
+  bladerunner.retired.splice(retIndex, 1)
+  
   const index = retirements.indexOf(retirement)
   retirements.splice(index, 1)
 

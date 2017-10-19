@@ -149,8 +149,9 @@ describe('Retirements resource', function() {
 
   describe('DELETE /bladerunners/:id/retirements/:retirementId', function() {
     it('should delete the given retirement if data is valid', function(done) {
-      const bladeRunnerId = "ee38a617-810d-4c89-b11d-69b004750fb4"
-      const retirementId = "369279eb-389c-476c-80c2-ff0adfa87366"
+      
+      const bladeRunnerId = "1ffec1b4-c7ea-4d4e-85de-9a3595139710"
+      const retirementId = "e4bcaf94-8218-43b8-aaa8-4a3ad60cd40e"
       chai.request(app)
         .delete(`/bladerunners/${bladeRunnerId}/retirements/${retirementId}`)
         .end((err, res) => {

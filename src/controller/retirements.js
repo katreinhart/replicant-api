@@ -47,7 +47,6 @@ const deleteRetirement = (req, res, next) => {
   const bladeRunnerId = req.params.id
   const retirementId = req.params.retirementId
   const response = model.deleteRetirement(bladeRunnerId, retirementId)
-
   if(response.error) {
     const status = response.error.status
     res.status(status).json({ errors: response.error })
