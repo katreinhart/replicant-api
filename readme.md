@@ -1,11 +1,11 @@
 # Replicant Registration API
 
-RESTful API with Replicants and Blade Runners resource, as well as a Retirements resource. 
-This API is designed for the LAPD to keep track of Replicants and tracking Blade Runner retirements. 
+RESTful API with Replicants and Blade Runners resources, as well as a Retirements resource. 
+This API is designed for the LAPD to keep track of Replicants and tracking Blade Runners' retirements thereof. 
 
 ### Replicant Resource
 
-When a new Replicant is discovered or found to be in violation, send a POST request to the /replicants resource with the following information: 
+When a new Replicant is discovered, or found to be in violation and in need of retirement, send a POST request to the /replicants resource with the following information: 
 * Name (if known)
 * Serial number
 * Model
@@ -13,8 +13,7 @@ When a new Replicant is discovered or found to be in violation, send a POST requ
 * Manufacturer
 * Purpose (if known)
 
-Name and purpose fields are optional; all others are required.
-This will create a new Replicant in the database with an assigned ID number. The replicant is assumed to not be retired, so retired: false and retiredBy: null default values are set. 
+Name and purpose fields are optional; all others are required. This will create a new Replicant in the database with an assigned ID number. The replicant is assumed to not be retired, so retired: false and retiredBy: null default values are set. 
 
 _Replicant Routes_
 1. GET /replicants - returns a list of all replicants in the database
@@ -113,4 +112,5 @@ _Other Retirements routes:_
 1. GET /bladerunners/:id/retirements - retrieve a list of all replicants retired by a given Blade Runner
 1. GET /bladerunners/:id/retirements/:retirementId - retrieve information for a particular retirement
 1. PUT /bladerunners/:id/retirements/:retirementId - update information for given retirement; all fields are required
-1. DELETE /bladerunners/:id/retirements/:retirementId - should not be used as a rule, but exists in case incorrect information is given
+1. DELETE /bladerunners/:id/retirements/:retirementId - should not be used as a rule, but exists in case incorrect information is given, or a replicant is thought retired but is in fact not retired
+
