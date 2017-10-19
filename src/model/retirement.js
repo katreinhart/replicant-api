@@ -92,6 +92,10 @@ function deleteRetirement (bladeRunnerId, retirementId) {
   replicant.retired = false
   replicant.retiredBy = null
 
+  const bladerunner = bladerunners.find(br => br.id === bladeRunnerId)
+  const retIndex = bladerunner.retirements.indexOf(retirementId)
+  bladerunner.retirements.splice(retIndex, 1)
+
   const index = retirements.indexOf(retirement)
   retirements.splice(index, 1)
 
