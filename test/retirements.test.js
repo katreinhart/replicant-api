@@ -54,7 +54,6 @@ describe('Retirements resource', function() {
                 .post(`/bladerunners/${id}/retirements`)
                 .send(retirement) 
                 .end((err, res) => {
-                  console.log('testing the posting fo the retirement')
                   expect(res.status).to.equal(200)
                   expect(res.body.data).to.be.an('object')
                   expect(res.body.data.bladeRunnerId).to.equal(id)
@@ -63,7 +62,6 @@ describe('Retirements resource', function() {
                   chai.request(app)
                     .get(`/replicants/${replicantId}`)
                     .end((err, res) => {
-                      console.log('testing to make sure the replicant was updatedd')
                       expect(res.status).to.equal(200)
                       expect(res.body.data).to.be.an('object')
                       expect(res.body.data.id).to.equal(replicantId)
@@ -73,6 +71,61 @@ describe('Retirements resource', function() {
                     })
                 })
             })
+        })
+    })
+  })
+
+  describe('GET /bladerunners/:id/retirements/:retirementID', function() {
+    it('should return the individual retirement data', function(done) {
+      // fixture 
+      const bladeRunnerId = "ee38a617-810d-4c89-b11d-69b004750fb4"
+      const retirementId = "369279eb-389c-476c-80c2-ff0adfa87366"
+      const retirement = {
+        "id": "369279eb-389c-476c-80c2-ff0adfa87366",
+        "replicantId": "75b40632-edd7-4574-8da6-0bd89a153cff",
+        "bladeRunnerId": "ee38a617-810d-4c89-b11d-69b004750fb4",
+        "retirementDate": "9 Nov 2049" 
+      }
+      chai.request(app)
+        .get(`/bladerunners/${bladeRunnerId}/retirements/${retirementId}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200)
+          expect(res.body.data).to.be.an('object')
+          expect(res.body.data).to.deep.equal(retirement)
+          done()
+      })
+    })
+
+    it('should return 404 if information does not match', function(done) {
+      chai.request(app)
+        .get(`/bladerunners/999/retirements/123`)
+        .end((err, res) => {
+          expect(res.status).to.equal(404)
+          expect(res.error.message).to.be.ok
+          done()
+        })
+    })
+  })
+
+  describe('PUT /bladerunners/:id/retirements/:retirementID', function() {
+    it('should update the given retirement', function(done) {
+      // fixture 
+      const bladeRunnerId = "ee38a617-810d-4c89-b11d-69b004750fb4"
+      const retirementId = "369279eb-389c-476c-80c2-ff0adfa87366"
+      const retirement = {
+        "replicantId": "75b40632-edd7-4574-8da6-0bd89a153cff",
+        "retirementDate": "19 Nov 2049" 
+      }
+      chai.request(app)
+        .put(`/bladerunners/${bladeRunnerId}/retirements/${retirementId}`)
+        .send(retirement)
+        .end((err, res) => {
+          expect(res.status).to.equal(200)
+          expect(res.body.data).to.be.an('object')
+          expect(res.body.data.bladeRunnerId).to.equal(bladeRunnerId)
+          expect(res.body.data.retirementDate).to.equal(retirement.retirementDate)
+          expect(res.body.data.replicantId).to.equal(retirement.replicantId)
+          done()
         })
     })
   })

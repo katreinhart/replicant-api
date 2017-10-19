@@ -1,12 +1,21 @@
 const retirements = require('../../data/retirements')
-const replicants = require('./replicant').replicants
+const { replicants } = require('./replicant')
 const bladerunners = require('./bladerunner').bladerunners
 
 const uuid = require('uuid/v4')
 
 const getRetirements = (id) => {
-  const retirementsById = retirements.filter(ret => ret.bladeRunnerId === id)
-  return retirementsById
+  return retirements.filter(ret => ret.bladeRunnerId === id)
+}
+
+const getOneRetirement = (id, retirementId) => {
+  const result = retirements.find(ret => (ret.bladeRunnerId === id && ret.id === retirementId))
+  if(!result) {
+    return { error: { status: 404, message: 'Retirement not found' }}
+  }
+  else {
+    return result
+  }
 }
 
 const retireReplicant = (bladeRunnerId, body) => {
@@ -19,6 +28,8 @@ const retireReplicant = (bladeRunnerId, body) => {
 
   if(!replicantId) errors.push('Replicant ID required')
   if(!retirementDate) errors.push('Retirement date required')
+
+  if(!replicants.find(rep => rep.id === replicantId)) errors.push('Replicant not found')
 
   if(errors.length > 0) {
     return { error: { status: 400, message: 'There were errors', errors: errors }}
@@ -41,7 +52,38 @@ const retireReplicant = (bladeRunnerId, body) => {
   return retirement
 }
 
+function updateRetirement(bladeRunnerId, retirementId, body) {
+  const retirementDate = body.retirementDate
+  const replicantId = body.replicantId
+  const errors = []
+
+  if(!replicantId) errors.push('Replicant ID required')
+  if(!retirementDate) errors.push('Retirement Date required')
+
+  if(!replicants.find(rep => rep.id === replicantId)) errors.push('Replicant not found')
+
+  if(errors.length > 0) {
+    return { error: { status: 400, message: 'There were errors', errors: errors }}
+  } 
+
+  const result = retirements.find(ret => {
+    return (ret.bladeRunnerId === bladeRunnerId && ret.id === retirementId)
+  })
+
+  if(!result) {
+    return { error: { status: 404, message: 'Retirement not found' }}
+  } 
+  else {
+    result.replicantId = replicantId
+    result.retirementDate = retirementDate
+
+    return result
+  }
+}
+ 
 module.exports = {
   getRetirements,
-  retireReplicant
+  getOneRetirement,
+  retireReplicant,
+  updateRetirement
 }

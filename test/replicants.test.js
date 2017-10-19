@@ -12,7 +12,8 @@ describe('Replicants Resource', function(){
         model: 'Nexus 6', 
         serial: 'N6MAA10816', 
         manufacturer: 'Tyrell Corp.', 
-        inceptDate: '8 Jan 2016' 
+        inceptDate: '8 Jan 2016', 
+        purpose: 'Military' 
       }
 
       chai.request(app)

@@ -15,6 +15,17 @@ function createReplicant(body) {
   const { name, model, serial, manufacturer, purpose, inceptDate } = body
   const id = uuid()
 
+  const errors = []
+
+  if(!model) errors.push('Model is required')
+  if(!serial) errors.push('Serial is required')
+  if(!manufacturer) errors.push('Manufacturer is required')
+  if(!inceptDate) errors.push('Incept date is required')
+  
+  if(errors.length > 0) {
+    return { error: { status: 400, message: 'There were errors', errors: errors }}
+  }
+
   const replicant = {
     id,
     name,
@@ -25,22 +36,11 @@ function createReplicant(body) {
     inceptDate 
   }
 
-  replicant.retired = false
-  replicant.retiredBy = null
-
-  const errors = []
-
-  if(!id) errors.push('Missing ID')
-  if(!model) errors.push('Model is required')
-  if(!serial) errors.push('Serial is required')
-  if(!manufacturer) errors.push('Manufacturer is required')
-  if(!inceptDate) errors.push('Incept date is required')
   if(!purpose) purpose = ""
   if(!name) name = ""
 
-  if(errors.length > 0) {
-    return { error: { status: 400, message: 'There were errors', errors: errors }}
-  }
+  replicant.retired = false
+  replicant.retiredBy = null
 
   replicants.push(replicant)
   return replicant
