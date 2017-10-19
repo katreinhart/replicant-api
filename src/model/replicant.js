@@ -35,6 +35,8 @@ function createReplicant(body) {
   if(!serial) errors.push('Serial is required')
   if(!manufacturer) errors.push('Manufacturer is required')
   if(!inceptDate) errors.push('Incept date is required')
+  if(!purpose) purpose = ""
+  if(!name) name = ""
 
   if(errors.length > 0) {
     return { error: { status: 400, message: 'There were errors', errors: errors }}
@@ -50,7 +52,7 @@ function updateReplicant(id, body) {
   if(!replicant) {
     return ({ error: { status: 404, message: `Replicant ${id} not found` }})
   } 
-  const { name, model, inceptDate, serial, manufacturer, purpose, retired, retiredBy } = body
+  const { name, model, inceptDate, serial, manufacturer, purpose } = body
   const index = replicants.indexOf(replicant)
 
   const errors = []
@@ -71,8 +73,6 @@ function updateReplicant(id, body) {
     replicant.serial = serial
     replicant.manufacturer = manufacturer
     replicant.purpose = purpose
-    replicant.retired = retired
-    replicant.retiredBy = retiredBy
   } 
   return replicant
 }
