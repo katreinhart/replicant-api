@@ -77,7 +77,6 @@ function updateRetirement(bladeRunnerId, retirementId, body) {
   else {
     result.replicantId = replicantId
     result.retirementDate = retirementDate
-    replicant.retirementDate = retirementDate
 
     return result
   }
@@ -89,9 +88,13 @@ function deleteRetirement (bladeRunnerId, retirementId) {
   if(!retirement) return { error: { status: 404, message: "Not found" }}
   if(retirement.bladeRunnerId !== bladeRunnerId) return { error: { status: 400, message: "Not found" }}
 
+  const replicant = replicants.find(rep => rep.id === retirement.replicantId)
+  replicant.retired = false
+  replicant.retiredBy = null
+
   const index = retirements.indexOf(retirement)
   retirements.splice(index, 1)
-  
+
   return retirement
 }
  
