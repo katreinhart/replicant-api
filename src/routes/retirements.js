@@ -6,5 +6,6 @@ router.get('/', ctrl.getRetirements)
 router.post('/', ctrl.retireReplicant)
 router.get('/:retirementId', ctrl.getOneRetirement)
 router.put('/:retirementId', ctrl.updateRetirement)
+router.delete('/:retirementId', ctrl.deleteRetirement)
 
 module.exports = router

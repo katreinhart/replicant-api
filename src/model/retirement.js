@@ -60,7 +60,8 @@ function updateRetirement(bladeRunnerId, retirementId, body) {
   if(!replicantId) errors.push('Replicant ID required')
   if(!retirementDate) errors.push('Retirement Date required')
 
-  if(!replicants.find(rep => rep.id === replicantId)) errors.push('Replicant not found')
+  const replicant = replicants.find(rep => rep.id === replicantId)
+  if(!replicant) errors.push('Replicant not found')
 
   if(errors.length > 0) {
     return { error: { status: 400, message: 'There were errors', errors: errors }}
@@ -76,14 +77,28 @@ function updateRetirement(bladeRunnerId, retirementId, body) {
   else {
     result.replicantId = replicantId
     result.retirementDate = retirementDate
+    replicant.retirementDate = retirementDate
 
     return result
   }
+}
+
+function deleteRetirement (bladeRunnerId, retirementId) {
+  const retirement = retirements.find(ret => ret.id === retirementId)
+
+  if(!retirement) return { error: { status: 404, message: "Not found" }}
+  if(retirement.bladeRunnerId !== bladeRunnerId) return { error: { status: 400, message: "Not found" }}
+
+  const index = retirements.indexOf(retirement)
+  retirements.splice(index, 1)
+  
+  return retirement
 }
  
 module.exports = {
   getRetirements,
   getOneRetirement,
   retireReplicant,
-  updateRetirement
+  updateRetirement,
+  deleteRetirement
 }

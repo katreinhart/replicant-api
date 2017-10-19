@@ -128,5 +128,56 @@ describe('Retirements resource', function() {
           done()
         })
     })
+
+    it('should return an error if given bad data', function(done) {
+      const bladeRunnerId = "ee38a617-810d-4c89-b11d-69b004750fb4"
+      const retirementId = "369279eb-389c-476c-80c2-ff0adfa87366"
+      const retirement = {
+        "replicantId": "123",
+        "retirementDate": "9 Nov 2049"
+      }
+      chai.request(app)
+        .put(`/bladerunners/${bladeRunnerId}/retirements/${retirementId}`)
+        .send(retirement)
+        .end((err, res) => {
+          expect(res.status).to.equal(404)
+          expect(res.error.text).to.be.ok
+          done()
+        })
+    })
+  })
+
+  describe('DELETE /bladerunners/:id/retirements/:retirementId', function() {
+    it('should delete the given retirement if data is valid', function(done) {
+      const bladeRunnerId = "ee38a617-810d-4c89-b11d-69b004750fb4"
+      const retirementId = "369279eb-389c-476c-80c2-ff0adfa87366"
+      chai.request(app)
+        .delete(`/bladerunners/${bladeRunnerId}/retirements/${retirementId}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200)
+          expect(res.body.data.id).to.equal(retirementId)
+          expect(res.body.data.bladeRunnerId).to.equal(bladeRunnerId)
+          chai.request(app)
+            .get(`/bladerunners/${bladeRunnerId}/retirements`)
+            .end((err, res) => {
+              expect(res.status).to.equal(200)
+              expect(res.body.data).to.be.an('array')
+              expect(res.body.data.length).to.equal(0)
+              done()
+            })
+        })
+    })
+
+    it('should not delete a retirement if given invalid data', function(done) {
+      const bladeRunnerId = "ee38a617-810d-4c89-b11d-69b004750fb4"
+      const retirementId = "369279eb-389c-476c-80c2-ff0adfa87366"
+      chai.request(app)
+        .delete(`/bladerunners/${bladeRunnerId}/retirements/123`)
+        .end((err, res) => {
+          expect(res.status).to.equal(404)
+          expect(res.error.text).to.be.ok
+          done()
+        })
+    })
   })
 })
