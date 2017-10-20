@@ -1,8 +1,20 @@
 const model = require('../model/bladerunner')
 
 getAllBladeRunners = (req, res, next) => {
-  const bladerunners = model.getAllBladeRunners()
-  res.status(200).json({ data: bladerunners })
+  const filter = req.query
+  switch(filter.species) {
+    case 'human': 
+      const humanBRs = model.getAllBladeRunners().filter(br => br.species === 'human')
+      res.status(200).json({ data: humanBRs })
+      break
+    case 'replicant':
+      const replBRs = model.getAllBladeRunners().filter(br => br.species === 'replicant')
+      res.status(200).json({ data: replBRs })
+      break
+    default: 
+      const bladerunners = model.getAllBladeRunners()
+      res.status(200).json({ data: bladerunners })
+  }
 }
 
 createBladeRunner = (req, res, next) => {

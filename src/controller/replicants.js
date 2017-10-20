@@ -1,8 +1,21 @@
 const model = require('../model/replicant')
 
 getAllReplicants = (req, res, next) => {
-  const replicants = model.getAllReplicants()
-  res.status(200).json({ data: replicants })
+  if(req.query.status) {
+    let status = req.query.status
+    if (status === 'retired') {
+      const retiredReplicants = model.getAllReplicants().filter((replicant => replicant.retired === true))
+
+      res.status(200).json({ data: retiredReplicants })
+    } else {
+      const activeReplicants = model.getAllReplicants().filter((replicant => replicant.retired === false))
+      res.status(200).json({ data: activeReplicants })
+    }
+  }
+  else {
+    const replicants = model.getAllReplicants()
+    res.status(200).json({ data: replicants })
+  }
 }
 
 getOneReplicant = (req, res, next) => {

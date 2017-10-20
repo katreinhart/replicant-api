@@ -78,9 +78,9 @@ When a Blade Runner completes a mission, update the database by sending a POST r
   This creates a new retirement: 
  ```
   {
-    retirementId
+    id (retirementId)
     replicantId
-    replicantName
+    bladeRunnerId
     retirementDate
   }
   ```

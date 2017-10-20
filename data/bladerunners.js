@@ -2,7 +2,7 @@ module.exports = [
   {
     "id": 'ee38a617-810d-4c89-b11d-69b004750fb4',
     "name": "KD6-3.7",
-    "species": "Replicant",
+    "species": "replicant",
     "employer": "LAPD", 
     "retired": [
       "75b40632-edd7-4574-8da6-0bd89a153cff"

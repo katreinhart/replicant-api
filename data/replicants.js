@@ -18,8 +18,8 @@ module.exports = [
     "manufacturer": "Niander Wallace", 
     "purpose": "Combat Medic",
     "inceptDate": "22 March 2019",
-    "retired": false,
-    "retiredBy": null
+    "retired": true,
+    "retiredBy": 'ee38a617-810d-4c89-b11d-69b004750fb4'
   },
   {
     "id": "6c7f72b3-95e5-4ac0-bef6-3df28316647d",

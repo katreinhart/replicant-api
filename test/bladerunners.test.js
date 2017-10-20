@@ -9,7 +9,7 @@ describe('Blade Runners Resource', function() {
     it('should add a new Blade Runner', function (done) {
       const bladerunner = {
         name: 'Gaff',
-        species: 'Human',
+        species: 'human',
         employer: 'LAPD'
       }
       chai.request(app)
@@ -52,6 +52,28 @@ describe('Blade Runners Resource', function() {
           const bladeRunner = res.body.data[0]
           expect(bladeRunner.name).to.be.ok
           expect(bladeRunner.employer).to.be.ok
+          done()
+        })
+    })
+
+    it('should return all human Blade Runners if ?species=human is given', function(done) {
+      chai.request(app)
+        .get('/bladerunners?species=human')
+        .end((err, res) => {
+          expect(res.status).to.equal(200)
+          expect(res.body.data).to.be.an('array')
+          expect(res.body.data.length).to.equal(2)
+          done()
+        })
+    })
+
+    it('should return all replicant Blade Runners if ?species=replicant is given', function(done) {
+      chai.request(app)
+        .get('/bladerunners?species=replicant')
+        .end((err, res) => {
+          expect(res.status).to.equal(200)
+          expect(res.body.data).to.be.an('array')
+          expect(res.body.data.length).to.equal(1)
           done()
         })
     })

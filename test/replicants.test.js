@@ -83,6 +83,32 @@ describe('Replicants Resource', function(){
           done()
         })
     })
+    it('should retrieve a list of retired replicants if ?status=retired query is included', function(done) {
+      chai.request(app)
+        .get('/replicants?status=retired')
+        .end((err, res) => {
+          expect(res.status).to.equal(200)
+          expect(res.body.data).to.be.an('array')
+          expect(res.body.data.length).to.equal(1)
+          
+          const replicant = res.body.data[0]
+          expect(replicant.name).to.equal('Sapper Morton')
+          expect(replicant.retiredBy).to.equal('ee38a617-810d-4c89-b11d-69b004750fb4')
+          done()
+        })
+    })
+    
+    it('should retrieve a list of active replicants if ?status=active query is included', function(done) {
+      chai.request(app)
+      .get('/replicants?status=active')
+      .end((err, res) => {
+        expect(res.status).to.equal(200)
+        expect(res.body.data).to.be.an('array')
+        expect(res.body.data.length).to.equal(3)
+        
+        done()
+      })
+    })
   })
 
   describe('GET /replicant/:id', function() {
